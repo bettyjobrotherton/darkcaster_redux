@@ -9,9 +9,9 @@ var timeoutConfig = {
 
 var apiKey = process.env.APIKEY || require('../config.js').apiKey;
 
-router.use(authorize);
+//router.use(authorize);
 
-router.get('/forcast/:latitude,:longitude', function(request, response){
+router.get('/forecast/:latitude,:longitude', function(request, response){
   var url = forecastURLbuilder(request.params.latitude, request.params.longitude);
 
   axios.get(url, timeoutConfig)
