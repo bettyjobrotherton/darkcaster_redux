@@ -13,7 +13,7 @@ var timeoutConfig = {
   timeout: 5000
 };
 
-//router.use(authorize);
+router.use(authorize);
 
 router.get('/:location', function(request, response){
   var url = convertLocation(request.params.location);
