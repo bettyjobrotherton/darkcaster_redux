@@ -1,3 +1,54 @@
+body {
+  background-color: #000000;
+  margin: 0;
+}
+
+header {
+  display: block;
+  background-color: #FFFFFF;
+}
+
+#thundercloud {
+  display: inline;
+  height: 100px;
+  width: 100px;
+  margin-left: 1%;
+  margin-top: 1%;
+}
+
+header h1 {
+  display: inline;
+  font-family: Impact, Charcoal, sans-serif;
+  font-style: italic;
+  font-size: 75px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+main {
+  color: #FFFFFF;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 1%;
+}
+
 p {
-  color: purple;
+  margin-left: 1%;
+}
+
+#example-intro {
+  margin-left: 10%;
+}
+
+#example {
+  margin-left: 10%;
+}
+
+#example li{
+  list-style-type: none;
+  margin-bottom: 5px;
+}
+
+#or-line {
+  margin-left: 5%;
 }

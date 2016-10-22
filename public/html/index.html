@@ -2,17 +2,32 @@
 <html lang="en">
 
 <head>
+  <link rel='shortcut icon' href='../images/thundercloud.ico' type='image/x-icon'/ >
   <title>Darkcaster</title>
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body>
-  <form>
-    <label for="location" class="location-label">Please enter city and state or zip code:</label>
-    <input type="text" required class="location-input">
-    <button class="submit">Submit</button>
-  </form>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+  <header>
+      <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
+      <h1>Darkcaster</h1>
+  </header>
+  <main>
+    <p>
+      Please add a forward slash and the city, state or zip code to the web address to get forecast information.
+    </p>
+    <p id="example-intro">
+      Ex. To see forecast information for Alcatraz Island, add:
+    </p>
+    <ul id='example'>
+      <li>/Alcatraz Island, CA</li>
+      <li id="or-line">--OR--</li>
+      <li>/94133</li>
+    </ul>
+  </main>
+  <footer>
+
+  </footer>
   <script src="js/app.js"></script>
 </body>
 

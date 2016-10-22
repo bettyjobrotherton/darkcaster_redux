@@ -20,17 +20,14 @@ router.get('/:location', function(request, response){
 
   axios.get(url, timeoutConfig)
        .then(function(res){
-         console.log(res.data.results[0].geometry.location.lat);
          latitude = res.data.results[0].geometry.location.lat;
          longitude = res.data.results[0].geometry.location.lng;
          return axios.get(forecastURLbuilder(latitude, longitude));
        })
        .then(function(weather){
-         console.log(weather);
          response.send(weather.data);
        })
        .catch(function(error){
-         console.log(error);
          response.send(error);
        });
  });
