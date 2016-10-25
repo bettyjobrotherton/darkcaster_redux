@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html ng-app="forecastApp">
 <head>
-  <link rel='shortcut icon' href='../images/thundercloud.ico' type='image/x-icon'/ >
+  <link rel='shortcut icon' href='/images/thundercloud.ico' type='image/x-icon'/ >
   <title>Darkcaster</title>
-  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
   <header>
-      <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
+      <img src="/images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
       <h1>Darkcaster</h1>
+      <div id="location-input" ng-controller="Geolocater">
+        <input type="text" ng-model="newLocation" value='Enter city, state or zip code'>
+        <button ng-click="createLocation(newLocation)">Enter</button>
+      </div>
   </header>
   <main>
     <p>
@@ -29,6 +32,9 @@
 
   </footer>
   <script src="js/app.js"></script>
+  <script src="js/controllers/geolocater.control.js"></script>
+  <script src="js/services/FindLatLng.service.js"></script>
+  <script src="js/services/LocationList.js"></script>
 </body>
 
 </html>
