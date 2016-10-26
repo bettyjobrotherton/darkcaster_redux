@@ -6,33 +6,44 @@
   LocationService.$inject = ['$window'];
 
   function LocationService($window){
-    var data = JSON.parse($window.localStorage.getItem('data'));
+    var userLocal = JSON.parse($window.localStorage.getItem('userLocal'));
 
     return {
       get: get,
       create: create,
       update: update,
       delete: remove,
+      reset: reset,
+      redirect: redirect
     };
 
     function get(){
-      return data;
+      return userLocal;
     }
 
     function create(description){
-      data.push({ desc: description });
-      $window.localStorage.setItem('data', JSON.stringify(data));
+      userLocal.push({ desc: description });
+      $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
       console.log($window.localStorage);
     }
 
     function update(index, newDescription){
-      data.splice(index, 1, { desc: newDescription });
-      $window.localStorage.setItem('data', JSON.stringify(data));
+      userLocal.splice(index, 1, { desc: newDescription });
+      $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
     }
 
     function remove(index){
-      data.splice(index, 1);
-      $window.localStorage.setItem('data', JSON.stringify(data));
+      userLocal.splice(index, 1);
+      $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
+    }
+
+    function reset(){
+      userLocal = [ ];
+      $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
+    }
+
+    function redirect(userLocal){
+      $window.location.href = '/' + userLocal;
     }
   }
 

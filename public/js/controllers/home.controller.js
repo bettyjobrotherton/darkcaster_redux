@@ -5,12 +5,14 @@
 
   HomeController.$inject = ['$scope', 'LocationService'];
 
-  function HomeController($scope, LocationService){
+  function HomeController($scope, LocationService, $location){
     $scope.locations = LocationService.get();
-    $scope.createLocation = createLocation;
+    $scope.setLocation = setLocation;
 
-    function createLocation(newLocation){
+    function setLocation(newLocation){
+      LocationService.reset();
       LocationService.create(newLocation);
+      LocationService.redirect();
     }
   }
 
