@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app='forecastApp'>
 
 <head>
   <link rel='shortcut icon' href='/images/thundercloud.ico' type='image/x-icon'/ >
   <title>Darkcaster</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 
@@ -11,6 +12,10 @@
   <header>
       <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
       <h1>Darkcaster</h1>
+      <div ng-controller="HomeController" id='location-form'>
+        <input type="text" ng-model='newLocation' id='location-input' placeholder='Enter zip code or city and state'>
+        <button ng-click="createLocation(newLocation)" id='location-form-button' class='btn'>Enter</button>
+      </div>
   </header>
   <main>
     <p>
@@ -28,7 +33,10 @@
   <footer>
 
   </footer>
-  <script src="js/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/controllers/home.controller.js"></script>
+  <script src="/js/services/location.service.js"></script>
 </body>
 
 </html>
