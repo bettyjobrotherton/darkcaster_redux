@@ -5,7 +5,7 @@
 
   HomeController.$inject = ['$scope', 'LocationService'];
 
-  function HomeController($scope, LocationService, $location){
+  function HomeController($scope, LocationService){
     $scope.locations = LocationService.get();
     $scope.setLocation = setLocation;
 

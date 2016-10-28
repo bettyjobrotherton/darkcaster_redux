@@ -3,9 +3,9 @@
   angular.module('forecastApp')
          .factory('LocationService', LocationService);
 
-  LocationService.$inject = ['$window'];
+  LocationService.$inject = ['$window', '$http'];
 
-  function LocationService($window){
+  function LocationService($window, $http){
     var userLocal = JSON.parse($window.localStorage.getItem('userLocal'));
 
     return {
@@ -42,9 +42,12 @@
       $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
     }
 
-    function redirect(userLocal){
-      $window.location.href = '/' + userLocal;
+    function redirect(){
+      $http.get('/' + userLocal).then(function successCallback(response){
+        console.log(response.data);
+      });
     }
+
   }
 
 }());

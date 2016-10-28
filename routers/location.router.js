@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 var authorize = require('../middleware/auth.js');
+var path = require('path');
 
 var apiKey = process.env.APIKEY || require('../config.js').apiKey;
 var geoAPIkey = process.env.GEOAPI || require('../config.js').geoAPIkey;
@@ -13,7 +14,7 @@ var timeoutConfig = {
   timeout: 5000
 };
 
-router.use(authorize);
+//router.use(authorize);
 
 router.get('/:location', function(request, response){
   var url = convertLocation(request.params.location);
@@ -22,11 +23,13 @@ router.get('/:location', function(request, response){
        .then(function(res){
          latitude = res.data.results[0].geometry.location.lat;
          longitude = res.data.results[0].geometry.location.lng;
-         return axios.get(forecastURLbuilder(latitude, longitude));
+         //return axios.get(forecastURLbuilder(latitude, longitude));
+         response.json(latitude);
+         response.json(longitude);
        })
-       .then(function(weather){
-         response.send(weather.data);
-       })
+      //  .then(function(weather){
+      //    response.send(weather.data);
+      //  })
        .catch(function(error){
          response.send(error);
        });
