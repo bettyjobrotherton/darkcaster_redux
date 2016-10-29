@@ -6,6 +6,14 @@
   LocationService.$inject = ['$window', '$http'];
 
   function LocationService($window, $http){
+    var secretToken = {
+      secret: '2Fujnz!*DQ_QHxAt](z28X\H7M/KC@=t6mtP'
+    };
+
+    var config = {
+      headers: secretToken
+    };
+
     var userLocal = JSON.parse($window.localStorage.getItem('userLocal'));
 
     return {
@@ -42,10 +50,10 @@
       $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
     }
 
-    function redirect(){
-      $http.get('/' + userLocal).then(function successCallback(response){
-        console.log(response.data);
-      });
+    function redirect(userLocal){
+      var url = '/' + userLocal;
+      return $http.get(url, config);
+      
     }
 
   }

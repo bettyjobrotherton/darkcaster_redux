@@ -12,13 +12,15 @@
   <header>
       <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
       <h1>Darkcaster</h1>
-      <div ng-controller="HomeController" id='location-form'>
-        <input type="text" ng-model='newLocation' id='location-input' placeholder='Enter zip code or city and state'>
-        <button ng-click="setLocation(newLocation)" id='location-form-button' class='btn'>Enter</button>
-      </div>
+      <!-- <div id='location-form'>
+        <div  ng-controller="HomeController">
+          <input type="text" ng-model='newLocation' id='location-input' placeholder='Enter zip code or city and state'>
+          <button ng-click="setLocation(newLocation)" id='location-form-button' class='btn'>Enter</button>
+        </div>
+      </div> -->
   </header>
   <main>
-    <p>
+    <!-- <p>
       Please add a forward slash and the city, state or zip code to the web address to get forecast information.
     </p>
     <p id="example-intro">
@@ -26,9 +28,26 @@
     </p>
     <ul id='example'>
       <li>/Alcatraz Island, CA</li>
-      <li id="or-line">--OR--</li>
+      <li id="or-line">OR</li>
       <li>/94133</li>
-    </ul>
+    </ul> -->
+    <div ng-controller="HomeController">
+      <input type="text" ng-model='latitude'>
+      <input type="text" ng-model='longitude'>
+      <button ng-click='getWeather(latitude, longitude)'>Get the Weather</button>
+
+      <div class="row">
+        <div class="col-md-1">
+          <img ng-src="images/{{weather.currently.icon}}.png" id="icon" alt="{{ weather.currently.icon }}">
+        </div>
+        <div class="col-md-9">{{weather.currently.summary}}</div>
+        <div class="col-md-2">{{weather.currently.time * 1000 | date: 'short'}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Temperature: {{ weather.currently.temperature | number: 0 }} &deg F</div>
+        <div class="col-md-3 col-md-offset-6">Probability of Precipitation: {{ weather.currently.precipProbability * 100 | number: 0 }} % </div>
+      </div>
+    </div>
   </main>
   <footer>
 
@@ -37,6 +56,7 @@
   <script src="/js/app.js"></script>
   <script src="/js/controllers/home.controller.js"></script>
   <script src="/js/services/location.service.js"></script>
+  <script src="/js/services/weather.service.js"></script>
 </body>
 
 </html>

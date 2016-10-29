@@ -74,3 +74,8 @@ p {
 #or-line {
   margin-left: 5%;
 }
+
+#icon {
+  height: 100px;
+  width: 100px;
+}
