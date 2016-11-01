@@ -17,14 +17,6 @@
     service.getWeather = getWeather;
     return service;
 
-    // var weatherData = [];
-    //
-    //
-    // return {
-    //   weatherData: weatherData,
-    //   getWeather: getWeather
-    // };
-
     function getWeather(latitude, longitude){
       lat = latitude;
       lon = longitude;

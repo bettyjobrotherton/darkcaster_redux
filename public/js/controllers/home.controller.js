@@ -13,16 +13,6 @@
     $scope.longitude = LocationService.getLng();
     // $scope.log = log;
 
-    //$scope.getWeather = getWeather;
-
-    // function getWeather(latitude, longitude){
-    //   WeatherService.getWeather(latitude, longitude)
-    //                 .then(function(response){
-    //                   $scope.weather = response.data;
-    //   });
-
-    //}
-
     function setLocation(newLocation){
       LocationService.reset();
       LocationService.create(newLocation);
@@ -41,6 +31,7 @@
         return WeatherService.weatherData;
         }, function(){
           $scope.weather = WeatherService.weatherData;
+          console.log($scope.weather);
       });
 
     }
