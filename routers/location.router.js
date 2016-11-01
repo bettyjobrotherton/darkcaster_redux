@@ -20,13 +20,16 @@ router.get('/:location', function(request, response){
   var url = convertLocation(request.params.location);
 
   axios.get(url, timeoutConfig)
-       .then(function(res){
-         latitude = res.data.results[0].geometry.location.lat;
-         longitude = res.data.results[0].geometry.location.lng;
-         //return axios.get(forecastURLbuilder(latitude, longitude));
-         response.json(latitude);
-         response.json(longitude);
+       .then(function(location){
+         response.send(location.data);
        })
+      //  .then(function(res){
+      //    latitude = res.data.results[0].geometry.location.lat;
+      //    longitude = res.data.results[0].geometry.location.lng;
+      //    return axios.get(forecastURLbuilder(latitude, longitude));
+         //response.json(latitude);
+         //response.json(longitude);
+       //})
       //  .then(function(weather){
       //    response.send(weather.data);
       //  })
@@ -35,10 +38,10 @@ router.get('/:location', function(request, response){
        });
  });
 
- function forecastURLbuilder (latitude, longitude){
-     var url = "https://api.darksky.net/forecast/" + apiKey + '/' + latitude + ',' + longitude;
-     return url;
- }
+ // function forecastURLbuilder (latitude, longitude){
+ //     var url = "https://api.darksky.net/forecast/" + apiKey + '/' + latitude + ',' + longitude;
+ //     return url;
+ // }
 
 function convertLocation(location){
   var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=' + geoAPIkey;

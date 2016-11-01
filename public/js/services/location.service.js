@@ -15,14 +15,18 @@
     };
 
     var userLocal = JSON.parse($window.localStorage.getItem('userLocal'));
+    var latitude;
+    var longitude;
 
     return {
       get: get,
       create: create,
-      update: update,
-      delete: remove,
+    // update: update,
+    // delete: remove,
       reset: reset,
-      redirect: redirect
+      redirect: redirect,
+      getLat: getLat,
+      getLng: getLng
     };
 
     function get(){
@@ -32,18 +36,17 @@
     function create(description){
       userLocal.push({ desc: description });
       $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
-      console.log($window.localStorage);
     }
 
-    function update(index, newDescription){
-      userLocal.splice(index, 1, { desc: newDescription });
-      $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
-    }
-
-    function remove(index){
-      userLocal.splice(index, 1);
-      $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
-    }
+    // function update(index, newDescription){
+    //   userLocal.splice(index, 1, { desc: newDescription });
+    //   $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
+    // }
+    //
+    // function remove(index){
+    //   userLocal.splice(index, 1);
+    //   $window.localStorage.setItem('userLocal', JSON.stringify(userLocal));
+    // }
 
     function reset(){
       userLocal = [ ];
@@ -52,10 +55,22 @@
 
     function redirect(userLocal){
       var url = '/' + userLocal;
-      return $http.get(url, config);
-      
+
+      return $http.get(url, config)
+                  .then(function(response){
+        latitude = response.data.results[0].geometry.location.lat;
+        longitude = response.data.results[0].geometry.location.lng;
+        console.log(latitude + ', ' + longitude);
+      });
     }
 
+    function getLat(){
+      return latitude;
+    }
+
+    function getLng(){
+      return longitude;
+    }
   }
 
 }());

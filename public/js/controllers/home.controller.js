@@ -6,27 +6,50 @@
   HomeController.$inject = ['$scope', 'LocationService', 'WeatherService'];
 
   function HomeController($scope, LocationService, WeatherService){
-    //$scope.locations = LocationService.get();
-    //$scope.setLocation = setLocation;
-    $scope.getWeather = getWeather;
+    $scope.locations = LocationService.get();
+    $scope.setLocation = setLocation;
+    $scope.weather = WeatherService.weatherData;
+    $scope.latitude = LocationService.getLat();
+    $scope.longitude = LocationService.getLng();
+    // $scope.log = log;
 
-    function getWeather(latitude, longitude){
-      WeatherService.getWeather(latitude, longitude)
-                    .then(function(response){
-                      $scope.weather = response.data;
-                    });
+    //$scope.getWeather = getWeather;
+
+    // function getWeather(latitude, longitude){
+    //   WeatherService.getWeather(latitude, longitude)
+    //                 .then(function(response){
+    //                   $scope.weather = response.data;
+    //   });
+
+    //}
+
+    function setLocation(newLocation){
+      LocationService.reset();
+      LocationService.create(newLocation);
+      LocationService.redirect(newLocation);
+
+
+      $scope.$watch(function(){
+        return LocationService.getLat();
+        }, function(){
+          $scope.latitude = LocationService.getLat();
+          $scope.longitude = LocationService.getLng();
+          WeatherService.getWeather($scope.latitude, $scope.longitude);
+      });
+
+      $scope.$watch(function(){
+        return WeatherService.weatherData;
+        }, function(){
+          $scope.weather = WeatherService.weatherData;
+      });
 
     }
 
-    //function setLocation(newLocation){
-      //LocationService.reset();
-      //LocationService.create(newLocation);
-      //LocationService.redirect(newLocation)
-      //               .then(function(response){
-      //     $scope.latitude =
-      //     $Scope.longitude =   
-    //});
-  //  }
   }
+
+  // function log(){
+  //   console.log($scope.latitude);
+  //   console.log(WeatherService.weatherData);
+  // }
 
 }());

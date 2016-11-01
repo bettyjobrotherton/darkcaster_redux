@@ -9,49 +9,52 @@
 </head>
 
 <body>
-  <header>
-      <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
-      <h1>Darkcaster</h1>
-      <!-- <div id='location-form'>
-        <div  ng-controller="HomeController">
+  <div ng-controller="HomeController">
+    <header>
+        <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
+        <h1>Darkcaster</h1>
+        <div id='location-form'>
           <input type="text" ng-model='newLocation' id='location-input' placeholder='Enter zip code or city and state'>
           <button ng-click="setLocation(newLocation)" id='location-form-button' class='btn'>Enter</button>
         </div>
-      </div> -->
-  </header>
-  <main>
-    <!-- <p>
-      Please add a forward slash and the city, state or zip code to the web address to get forecast information.
-    </p>
-    <p id="example-intro">
-      Ex. To see forecast information for Alcatraz Island, add:
-    </p>
-    <ul id='example'>
-      <li>/Alcatraz Island, CA</li>
-      <li id="or-line">OR</li>
-      <li>/94133</li>
-    </ul> -->
-    <div ng-controller="HomeController">
+    </header>
+    <main>
+      <!-- <p>
+        Please add a forward slash and the city, state or zip code to the web address to get forecast information.
+      </p>
+      <p id="example-intro">
+        Ex. To see forecast information for Alcatraz Island, add:
+      </p>
+      <ul id='example'>
+        <li>/Alcatraz Island, CA</li>
+        <li id="or-line">OR</li>
+        <li>/94133</li>
+      </ul>
       <input type="text" ng-model='latitude'>
       <input type="text" ng-model='longitude'>
       <button ng-click='getWeather(latitude, longitude)'>Get the Weather</button>
+     -->
 
-      <div class="row">
-        <div class="col-md-1">
-          <img ng-src="images/{{weather.currently.icon}}.png" id="icon" alt="{{ weather.currently.icon }}">
+      <div ng-show='weather.currently'>
+        <div class="row">
+          <div class="col-md-1">
+            <img ng-src="images/{{weather.currently.icon}}.png" id="icon" alt="{{ weather.currently.icon }}">
+          </div>
+          <div class="col-md-9">{{weather.currently.summary}}</div>
+          <!-- The following uses an Angular filter to format the date -->
+          <div class="col-md-2">{{weather.currently.time * 1000 | date: 'short'}}</div>
         </div>
-        <div class="col-md-9">{{weather.currently.summary}}</div>
-        <div class="col-md-2">{{weather.currently.time * 1000 | date: 'short'}}</div>
+        <div class="row">
+          <div class="col-md-3">Temperature: {{ weather.currently.temperature | number: 0 }} &deg F</div>
+          <div class="col-md-3 col-md-offset-6">Probability of Precipitation: {{ weather.currently.precipProbability * 100 | number: 0 }} % </div>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-md-3">Temperature: {{ weather.currently.temperature | number: 0 }} &deg F</div>
-        <div class="col-md-3 col-md-offset-6">Probability of Precipitation: {{ weather.currently.precipProbability * 100 | number: 0 }} % </div>
-      </div>
-    </div>
-  </main>
-  <footer>
+    </main>
+    <footer>
+      <!-- <button ng-click="log()">Log</button> -->
+    </footer>
 
-  </footer>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
   <script src="/js/app.js"></script>
   <script src="/js/controllers/home.controller.js"></script>
