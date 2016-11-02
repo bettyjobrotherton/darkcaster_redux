@@ -59,6 +59,12 @@ main, #main {
   text-align: center;
 }
 
+.title {
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+}
+
 p {
   /*margin-left: 1%;*/
 }

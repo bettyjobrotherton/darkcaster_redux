@@ -7,7 +7,6 @@
 
   function CurrentWeatherController($scope, WeatherService, CompassService){
     $scope.weather = WeatherService.weatherData;
-    //$scope.windDirection = CompassService.compass;
 
     $scope.$watch(function(){
       return WeatherService.weatherData;

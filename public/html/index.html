@@ -31,12 +31,17 @@
             <div ng-controller="CurrentWeatherController">
               <div ng-show='weather.currently'>
                 <div class="row">
-                  <div class="row">
-                    <div class='col'>
-                      <!-- The following uses an Angular filter to format the date -->
-                      <p>{{weather.currently.time * 1000 | date: 'short'}}</p>
-                    </div>
+                  <div class="col-md col-md-offset-1">
+                    <h2 class='title'>Current Weather</h2>
                   </div>
+                </div>
+                <div class="row">
+                  <div class='col'>
+                    <!-- The following uses an Angular filter to format the date -->
+                    <p>{{weather.currently.time * 1000 | date: 'short'}}</p>
+                  </div>
+                </div>
+                <div class='row'>
                   <div class="col-md-2 col-md-offset-1">
                     <img ng-src="images/{{weather.currently.icon}}.png" class="icon" alt="{{ weather.currently.icon }}">
                   </div>
@@ -45,29 +50,33 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-1">
+                  <div class="col-md-5 col-md-offset-1">
                     <p>Temperature: {{ weather.currently.temperature | number: 0 }} &deg F</p>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-5">
                     <p>Humidity: {{ weather.currently.humidity * 100 | number: 0 }} %</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p>Wind: {{ windDirection }} {{ weather.currently.windSpeed | number: 1 }} MPH</p>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-1">
+                  <div class="col-md-5 col-md-offset-1">
                     <p>Feels like: {{ weather.currently.apparentTemperature | number: 0 }} &deg F</p>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-5">
                     <p>Visibility: {{ weather.currently.visibility | number: 0 }} miles</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 col-md-offset-1">
+                    <p>Wind: {{ windDirection }} {{ weather.currently.windSpeed | number: 1 }} MPH</p>
                   </div>
                 </div>
               </div>
             </div>
             <div ng-controller="MinuteWeatherController">
-              <div ng-show="show.minute.weather">
+              <div>
+                <div class="row">
 
+                </div>
               </div>
             </div>
             <div ng-controller="HourlyWeatherController"></div>
