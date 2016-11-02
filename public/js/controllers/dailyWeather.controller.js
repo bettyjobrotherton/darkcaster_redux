@@ -3,9 +3,18 @@
   angular.module('forecastApp')
          .controller('DailyWeatherController', DailyWeatherController);
 
-  DailyWeatherController.$inject = [];
+  DailyWeatherController.$inject = ['$scope', 'WeatherService'];
 
-  function DailyWeatherController(){}
+  function DailyWeatherController($scope, WeatherService){
+    $scope.weather = WeatherService.weatherData;
+
+    $scope.$watch(function(){
+      return WeatherService.weatherData;
+      }, function(){
+        $scope.weather = WeatherService.weatherData;
+    });
+
+  }
 
 
 }());

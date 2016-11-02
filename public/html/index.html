@@ -18,27 +18,67 @@
           <button ng-click="setLocation(newLocation)" id='location-form-button' class='btn'>Enter</button>
         </div>
     </header>
+    <div ng-show="firstImpression">
+      <div id="main">
+        <p>Please enter your location in the box above for your forecast.</p>
+      </div>
+    </div>
   </div>
     <main>
-      <div ng-controller="CurrentWeatherController">
-        <div ng-show='weather.currently'>
-          <div class="row">
-            <div class="col-md-1">
-              <img ng-src="images/{{weather.currently.icon}}.png" id="icon" alt="{{ weather.currently.icon }}">
+      <div class="container">
+        <div class="row">
+          <div class="col col-md-9" id='forecasts'>
+            <div ng-controller="CurrentWeatherController">
+              <div ng-show='weather.currently'>
+                <div class="row">
+                  <div class="row">
+                    <div class='col'>
+                      <!-- The following uses an Angular filter to format the date -->
+                      <p>{{weather.currently.time * 1000 | date: 'short'}}</p>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-md-offset-1">
+                    <img ng-src="images/{{weather.currently.icon}}.png" class="icon" alt="{{ weather.currently.icon }}">
+                  </div>
+                  <div class="col-md-8">
+                    <p>{{weather.currently.summary}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-md-offset-1">
+                    <p>Temperature: {{ weather.currently.temperature | number: 0 }} &deg F</p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Humidity: {{ weather.currently.humidity * 100 | number: 0 }} %</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>Wind: {{ windDirection }} {{ weather.currently.windSpeed | number: 1 }} MPH</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-md-offset-1">
+                    <p>Feels like: {{ weather.currently.apparentTemperature | number: 0 }} &deg F</p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Visibility: {{ weather.currently.visibility | number: 0 }} miles</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-9">{{weather.currently.summary}}</div>
-            <!-- The following uses an Angular filter to format the date -->
-            <div class="col-md-2">{{weather.currently.time * 1000 | date: 'short'}}</div>
+            <div ng-controller="MinuteWeatherController">
+              <div ng-show="show.minute.weather">
+
+              </div>
+            </div>
+            <div ng-controller="HourlyWeatherController"></div>
+            <div ng-controller="DailyWeatherController"></div>
+
           </div>
-          <div class="row">
-            <div class="col-md-3">Temperature: {{ weather.currently.temperature | number: 0 }} &deg F</div>
-            <div class="col-md-3 col-md-offset-6">Probability of Precipitation: {{ weather.currently.precipProbability * 100 | number: 0 }} % </div>
+          <div class="col col-md-3">
+
           </div>
         </div>
       </div>
-      <div ng-controller="MinuteWeatherController"></div>
-      <div ng-controller="HourlyWeatherController"></div>
-      <div ng-controller="DailyWeatherController"></div>
     </main>
     <footer>
       <!-- <button ng-click="log()">Log</button> -->
@@ -53,6 +93,7 @@
   <script src="/js/controllers/dailyWeather.controller.js"></script>
   <script src="/js/services/location.service.js"></script>
   <script src="/js/services/weather.service.js"></script>
+  <script src="/js/services/compass.service.js"></script>
 </body>
 
 </html>

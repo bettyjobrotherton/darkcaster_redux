@@ -13,6 +13,9 @@
     $scope.longitude = LocationService.getLng();
     // $scope.log = log;
 
+    $scope.firstImpression = true;
+    $scope.current = false;
+
     function setLocation(newLocation){
       LocationService.reset();
       LocationService.create(newLocation);
@@ -31,7 +34,8 @@
         return WeatherService.weatherData;
         }, function(){
           $scope.weather = WeatherService.weatherData;
-          console.log($scope.weather);
+          $scope.firstImpression = false;
+          $scope.current = true;
       });
 
     }
