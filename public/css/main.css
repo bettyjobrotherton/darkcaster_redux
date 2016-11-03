@@ -60,6 +60,7 @@ main, #main {
 }
 
 .title {
+  color: yellow;
   font-size: 30px;
   font-style: italic;
   font-weight: bold;
@@ -89,4 +90,8 @@ p {
 .icon {
   height: 100px;
   width: 100px;
+}
+
+.main-summary {
+  padding-bottom: 20px;
 }

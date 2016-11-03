@@ -9,8 +9,8 @@
       secret: '2Fujnz!*DQ_QHxAt](z28X\H7M/KC@=t6mtP'
     };
 
-    var lat;
-    var lon;
+    // var lat;
+    // var lon;
     var service = {};
 
     service.weatherData = [];
@@ -18,13 +18,13 @@
     return service;
 
     function getWeather(latitude, longitude){
-      lat = latitude;
-      lon = longitude;
+      service.lat = latitude;
+      service.lon = longitude;
 
       var config = {
         headers: secretToken
       };
-      var url = '/forecast/' + lat + ',' + lon;
+      var url = '/forecast/' + latitude + ',' + longitude;
 
       return $http.get(url, config)
                   .then(function(response){
