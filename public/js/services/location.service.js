@@ -17,6 +17,7 @@
     var userLocal = JSON.parse($window.localStorage.getItem('userLocal'));
     var latitude;
     var longitude;
+    var formalLocal;
 
     return {
       get: get,
@@ -26,7 +27,8 @@
       reset: reset,
       redirect: redirect,
       getLat: getLat,
-      getLng: getLng
+      getLng: getLng,
+      getLocal: getLocal
     };
 
     function get(){
@@ -60,7 +62,7 @@
                   .then(function(response){
         latitude = response.data.results[0].geometry.location.lat;
         longitude = response.data.results[0].geometry.location.lng;
-        console.log(latitude + ', ' + longitude);
+        formalLocal = response.data.results[0].formatted_address;
       });
     }
 
@@ -70,6 +72,10 @@
 
     function getLng(){
       return longitude;
+    }
+
+    function getLocal(){
+      return formalLocal;
     }
   }
 

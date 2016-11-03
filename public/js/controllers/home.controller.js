@@ -11,6 +11,7 @@
     $scope.weather = WeatherService.weatherData;
     $scope.latitude = LocationService.getLat();
     $scope.longitude = LocationService.getLng();
+    $scope.location = LocationService.getLocal();
     // $scope.log = log;
 
     $scope.firstImpression = true;
@@ -27,6 +28,7 @@
         }, function(){
           $scope.latitude = LocationService.getLat();
           $scope.longitude = LocationService.getLng();
+          $scope.location = LocationService.getLocal();
           WeatherService.getWeather($scope.latitude, $scope.longitude);
       });
 
