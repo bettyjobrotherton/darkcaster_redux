@@ -1,34 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app='forecastApp'>
 
 <head>
   <link rel='shortcut icon' href='/images/thundercloud.ico' type='image/x-icon'/ >
   <title>Darkcaster</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
-  <header>
-      <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
-      <h1>Darkcaster</h1>
-  </header>
-  <main>
-    <p>
-      Please add a forward slash and the city, state or zip code to the web address to get forecast information.
-    </p>
-    <p id="example-intro">
-      Ex. To see forecast information for Alcatraz Island, add:
-    </p>
-    <ul id='example'>
-      <li>/Alcatraz Island, CA</li>
-      <li id="or-line">--OR--</li>
-      <li>/94133</li>
-    </ul>
-  </main>
-  <footer>
+  <div ng-controller="HomeController">
+    <header>
+        <img src="../images/mean-thunder-cloud-royalty-free-clipart.jpg" alt="" id="thundercloud">
+        <h1>Darkcaster</h1>
+        <div id='location-form'>
+          <input type="text" ng-model='newLocation' id='location-input' placeholder='Enter zip code or city and state'>
+          <button ng-click="setLocation(newLocation)" id='location-form-button' class='btn'>Enter</button>
+        </div>
+    </header>
+    <div ng-show="firstImpression">
+      <div id="main">
+        <p>Please enter your location in the box above for your forecast.</p>
+      </div>
+    </div>
+    <div ng-hide='firstImpression'>
+      <div id='main2'>
+        <p>{{ location }}</p>
+      </div>
+    </div>
+  </div>
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col col-md-9" id='forecasts'>
+            <div ng-controller="CurrentWeatherController">
+              <div ng-show='weather.currently'>
+                <div class="row">
+                  <div class="col-md col-md-offset-1">
+                    <h2 class='title'>Current Weather</h2>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class='col'>
+                    The following uses an Angular filter to format the date
+                    <p>{{weather.currently.time * 1000 | date: 'short'}}</p>
+                  </div>
+                </div> -->
+                <div class='row'>
+                  <div class="col-md-2">
+                    <img ng-src="images/{{weather.currently.icon}}.png" class="icon" alt="{{ weather.currently.icon }}">
+                  </div>
+                  <div class="col-md-10">
+                    <p>{{weather.currently.summary}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p>Temperature: {{ weather.currently.temperature | number: 0 }}&degF</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Visibility: {{ weather.currently.visibility | number: 0 }} miles</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p>Feels like: {{ weather.currently.apparentTemperature | number: 0 }}&degF</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Humidity: {{ weather.currently.humidity * 100 | number: 0 }}%</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p>Wind: {{ windDirection }} {{ weather.currently.windSpeed | number: 1 }}MPH</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Chance of percipitation: {{ weather.currently.precipProbability * 100 | number: 0 }}%</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-controller="MinuteWeatherController">
+              <div ng-show='weather.minutely'>
+                <div class="row">
+                  <div class="col-md col-md-offset-1">
+                    <h2 class='title'>Minutely Weather Forecast</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <img ng-src="images/{{weather.minutely.icon}}.png" class="icon" alt="{{ weather.minutely.icon }}">
+                  </div>
+                  <div class="col-md-10">
+                    <p class="main-summary">{{weather.minutely.summary}}</p>
+                  </div>
+                </div>
 
-  </footer>
-  <script src="js/app.js"></script>
+                <div ng-repeat="minute in weather.minutely.data | limitTo: 15">
+                  <div class="row">
+                    <div class='col-md col-md-offset-1'>
+                      <p>{{ minute.time * 1000 | date: 'h:mm a'}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5 col-md-offset-2">
+                      <p>Chance of percipitation: {{ minute.precipProbability * 100 | number: 0 }}%</p>
+                    </div>
+                    <div class="col-md-5">
+                      <p>Intensity of percipitation: {{ minute.precipIntensity * 100 | number: 0 }}%</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div ng-controller="HourlyWeatherController">
+              <div ng-show="weather.hourly">
+                <div class="row">
+                  <div class="col-md col-md-offset-1">
+                    <h2 class="title">Hourly Weather Forecast</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md">
+                    <p class='main-summary'>{{ weather.hourly.summary }}</p>
+                  </div>
+                </div>
+                <div ng-repeat="hour in weather.hourly.data | limitTo: 6">
+                  <div class="row">
+                    <div class="col-md-2 col-md-offset-1">
+                      <p>{{ hour.time * 1000 | date: 'h:mm a'}}</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img ng-src="images/{{hour.icon}}.png" class="icon" alt="{{ hour.icon }}">
+                    </div>
+                    <div class="col-md-7">
+                      <p>{{ hour.summary }}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                      <p>Temperature: {{ hour.temperature | number: 0 }}&degF</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p>Visibility: {{ hour.visibility | number: 0 }} miles</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                      <p>Feels like: {{ hour.apparentTemperature | number: 0 }}&degF</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p>Humidity: {{ hour.humidity * 100 | number: 0}}%</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                      <p>Wind: {{ windDirection }} {{ hour.windSpeed | number: 1 }}MPH</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p>Chance of precipitation: {{ hour.precipProbability * 100 | number: 0 }}%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-controller="DailyWeatherController">
+              <div ng-show="weather.daily">
+                <div class="row">
+                  <div class="col-md col-md-offset-1">
+                    <h2 class="title">Daily Weather Forecast</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md">
+                    <p class='main-summary'>{{ weather.daily.summary }}</p>
+                  </div>
+                </div>
+                <div ng-repeat='day in weather.daily.data | limitTo: 5'>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <p>{{ day.time * 1000 | date: 'EEE, MMM d'}}</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img ng-src="images/{{day.icon}}.png" class="icon" alt="{{ day.icon }}">
+                    </div>
+                    <div class="col-md-7">
+                      <p>{{ day.summary }}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                      <p>Sunrise: {{ day.sunriseTime | date: 'h:mm a' }}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p>Sunset: {{ day.sunsetTime * 1000 | date: 'h:mm a'}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                      <p>Low Temperature: {{ day.temperatureMin | number: 0 }}&degF</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p>High Temperature: {{ day.temperatureMax | number: 0 }}&degF</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                      <p>Humidity: {{ day.humidity * 100 | number: 0 }}%</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p>Wind: {{ windDirection }} {{ day.windSpeed | number: 1 }}MPH</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                      <p>Chance of precipitation: {{ day.precipProbability * 100 | number: 0 }}%</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p>Visibility: {{ day.visibility | number: 0 }} miles</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col col-md-3">
+
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <!-- <button ng-click="log()">Log</button> -->
+    </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/controllers/home.controller.js"></script>
+  <script src="/js/controllers/currentWeather.controller.js"></script>
+  <script src="/js/controllers/minuteWeather.controller.js"></script>
+  <script src="/js/controllers/hourlyWeather.controller.js"></script>
+  <script src="/js/controllers/dailyWeather.controller.js"></script>
+  <script src="/js/services/location.service.js"></script>
+  <script src="/js/services/weather.service.js"></script>
+  <script src="/js/services/compass.service.js"></script>
 </body>
 
 </html>
