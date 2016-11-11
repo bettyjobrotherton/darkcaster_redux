@@ -6,7 +6,7 @@
 
   function WeatherService($http){
     var secretToken = {
-      secret: '2Fujnz!*DQ_QHxAt](z28X\H7M/KC@=t6mtP'
+      secret: '2FujnzDQQHxAtz28XH7MKCt6mtP'
     };
 
     // var lat;
